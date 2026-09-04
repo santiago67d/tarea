@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PCSTORE | Tecnología sin límites</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{font-family:Arial,Helvetica,sans-serif;background:#080d18;color:#f5f7ff}
+    a{text-decoration:none;color:inherit}
+    button{font:inherit;cursor:pointer}
+    .header{
+      height:76px;background:#050a14;border-bottom:1px solid #182236;
+      display:flex;align-items:center;justify-content:space-between;padding:0 5%;
+      position:sticky;top:0;z-index:20
+    }
+    .logo{display:flex;align-items:center;gap:10px;font-size:25px;font-weight:800;color:#fff}
+    .logo-icon{width:38px;height:38px;border:2px solid #377dff;border-radius:9px;display:grid;place-items:center;color:#377dff;font-size:21px}
+    .logo span{color:#377dff}
+    .tagline{font-size:11px;color:#8993a8;margin-top:2px;font-weight:400}
+    nav{display:flex;gap:30px;align-items:center;font-size:13px}
+    nav a{padding:29px 0;position:relative;color:#eef2ff}
+    nav a:hover,nav a.active{color:#4d83ff}
+    nav a.active:after{content:"";position:absolute;bottom:0;left:0;width:100%;height:2px;background:#377dff}
+    .actions{display:flex;gap:20px;align-items:center;font-size:25px}
+    .cart{position:relative}.badge{position:absolute;right:-9px;top:-8px;background:#356cff;color:#fff;border-radius:50%;font-size:10px;width:17px;height:17px;display:grid;place-items:center}
+
+    .hero{
+      min-height:490px;display:flex;align-items:center;padding:65px 5%;
+      position:relative;overflow:hidden;
+      background:
+        radial-gradient(circle at 75% 45%,rgba(112,45,255,.30),transparent 28%),
+        radial-gradient(circle at 45% 15%,rgba(0,94,255,.15),transparent 35%),
+        linear-gradient(105deg,#070d18,#0a1020 55%,#100d24)
+    }
+    .hero:after{content:"";position:absolute;right:-100px;top:-100px;width:550px;height:550px;border-radius:50%;background:radial-gradient(circle,rgba(87,48,255,.28),transparent 65%)}
+    .hero-content{width:53%;position:relative;z-index:2}
+    .hero h1{font-size:56px;line-height:1.03;margin-bottom:18px}
+    .hero h1 span{background:linear-gradient(90deg,#3b7cff,#9a63ff);-webkit-background-clip:text;color:transparent}
+    .hero p{color:#c3cada;font-size:17px;line-height:1.6;max-width:540px}
+    .buttons{display:flex;gap:15px;margin:28px 0 34px}
+    .btn{border:0;border-radius:28px;padding:15px 27px;font-weight:700;font-size:13px}
+    .btn-primary{background:linear-gradient(90deg,#286bff,#426eff);color:white}
+    .btn-outline{background:transparent;color:#fff;border:1px solid #a8b0c0}
+    .benefits{display:flex;gap:38px}
+    .benefit{display:flex;gap:12px;align-items:center}
+    .benefit .icon{font-size:27px;color:#7a8fff}
+    .benefit strong{display:block;font-size:11px;margin-bottom:5px}
+    .benefit small{color:#98a2b7;font-size:10px;line-height:1.4}
+    .pc-visual{position:absolute;right:6%;bottom:0;width:42%;height:95%;display:flex;align-items:center;justify-content:center}
+    .pc-case{width:300px;height:385px;border:2px solid #28334a;border-radius:12px;background:linear-gradient(145deg,#171e2d,#070a10);box-shadow:0 0 60px rgba(72,58,255,.35),inset 0 0 40px rgba(47,109,255,.07);position:relative}
+    .pc-case:before{content:"";position:absolute;left:20px;right:20px;top:20px;bottom:20px;border:1px solid #33415d;border-radius:7px;background:linear-gradient(145deg,rgba(38,47,68,.7),rgba(4,7,12,.8))}
+    .fan{position:absolute;right:28px;width:66px;height:66px;border-radius:50%;border:7px solid #212a3b;box-shadow:0 0 25px #674dff,inset 0 0 18px #4c77ff}
+    .fan:after{content:"";position:absolute;inset:13px;border-radius:50%;background:radial-gradient(circle,#b7a4ff 0 10%,#725bff 11% 35%,#2027a0 36% 65%,transparent 66%)}
+    .fan.f1{top:48px}.fan.f2{top:142px}.fan.f3{top:236px}
+    .gpu{position:absolute;left:45px;top:185px;width:170px;height:58px;background:linear-gradient(#293449,#111722);border:1px solid #485570;border-radius:5px;box-shadow:0 0 12px rgba(67,112,255,.2)}
+    .gpu:after{content:"RTX";position:absolute;right:12px;top:18px;color:#66718a;font-weight:800}
+
+    section{padding:55px 4%;background:#0a101c}
+    .section-title{text-align:center;font-size:22px;margin-bottom:34px}
+    .section-title:after{content:"";display:block;width:45px;height:3px;background:linear-gradient(90deg,#3578ff,#a65dff);margin:12px auto 0;border-radius:3px}
+    .categories{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;max-width:1200px;margin:auto}
+    .category{background:#171e2c;border:1px solid #202a3e;border-radius:7px;padding:18px 10px;text-align:center;transition:.25s}
+    .category:hover{transform:translateY(-5px);border-color:#4c72ff}
+    .category-img{height:125px;display:grid;place-items:center;font-size:75px}
+    .category h3{font-size:13px;margin:8px 0}
+    .category p{font-size:11px;color:#aeb6c8;line-height:1.5}
+    .all-btn{display:block;margin:20px auto 0;padding:12px 25px;background:transparent;border:1px solid #778096;color:white;border-radius:5px;font-weight:700;font-size:11px}
+
+    .products{background:#101827}
+    .product-grid{max-width:1200px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr);gap:13px}
+    .product{background:#fff;color:#111827;border-radius:8px;overflow:hidden;position:relative;padding-bottom:14px}
+    .offer{position:absolute;top:12px;left:10px;background:#3d78ff;color:#fff;border-radius:4px;padding:5px 7px;font-size:9px;font-weight:700;z-index:2}
+    .product-img{height:190px;display:grid;place-items:center;background:#f5f6f8;font-size:85px}
+    .product-body{padding:13px 16px}
+    .product h3{font-size:12px;line-height:1.45;min-height:36px}
+    .price{color:#2165ee;font-size:17px;font-weight:800;margin:12px 0}
+    .old{color:#999;text-decoration:line-through;font-size:11px;margin-left:7px;font-weight:400}
+    .add{width:100%;background:#07101e;color:#fff;border:0;border-radius:4px;padding:9px;font-size:10px;font-weight:700}
+
+    .assembly{max-width:1200px;margin:28px auto 0;border-radius:8px;padding:30px 38px;background:linear-gradient(90deg,#050b15,#101a2d);border:1px solid #19263c;display:flex;align-items:center;justify-content:space-between;overflow:hidden}
+    .assembly-icon{font-size:43px;color:#447dff}
+    .assembly-text{flex:1;margin-left:25px}
+    .assembly-text h2{font-size:20px}.assembly-text h2 span{color:#4c7eff}.assembly-text p{font-size:12px;color:#aeb7c8;margin-top:6px}
+
+    footer{background:#080e19;padding:40px 4% 15px;border-top:1px solid #172237}
+    .footer-grid{max-width:1200px;margin:auto;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:50px}
+    footer h3{font-size:13px;margin-bottom:16px}footer p,footer a{display:block;color:#9ca6ba;font-size:11px;line-height:2}
+    .social{display:flex;gap:15px;margin-top:12px;font-size:17px}
+    .copyright{max-width:1200px;margin:25px auto 0;padding-top:15px;border-top:1px solid #182337;text-align:center;color:#68748b;font-size:10px}
+
+    .toast{position:fixed;right:20px;bottom:20px;background:#172238;color:#fff;padding:14px 20px;border:1px solid #3d5fa4;border-radius:7px;transform:translateY(100px);opacity:0;transition:.3s;z-index:50;font-size:12px}
+    .toast.show{transform:translateY(0);opacity:1}
+
+    @media(max-width:900px){
+      nav{display:none}.hero{padding:45px 6%}.hero-content{width:100%}.pc-visual{opacity:.18;width:80%;right:-15%}.hero h1{font-size:43px}
+      .categories{grid-template-columns:repeat(3,1fr)}.product-grid{grid-template-columns:repeat(2,1fr)}
+      .footer-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:560px){
+      .categories{grid-template-columns:repeat(2,1fr)}.product-grid{grid-template-columns:1fr 1fr}.benefits{flex-wrap:wrap;gap:15px}
+      .hero h1{font-size:36px}.assembly{padding:25px 18px}.assembly-icon{display:none}
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <a href="#" class="logo">
+    <div class="logo-icon">▣</div>
+    <div>PC<span>STORE</span><div class="tagline">Tecnología sin límites</div></div>
+  </a>
+  <nav>
+    <a href="#" class="active">INICIO</a>
+    <a href="#productos">PRODUCTOS⌄</a>
+    <a href="#categorias">COMPONENTES⌄</a>
+    <a href="#ofertas">OFERTAS</a>
+    <a href="#nosotros">SOBRE NOSOTROS</a>
+    <a href="#contacto">CONTACTO</a>
+  </nav>
+  <div class="actions"><span>⌕</span><span>♙</span><span class="cart">🛒<b class="badge" id="cartCount">0</b></span></div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Potencia tu mundo.<br><span>Elige. Arma. Juega.</span></h1>
+      <p>Las mejores computadoras y componentes al mejor precio. Envíos a todo el país.</p>
+      <div class="buttons">
+        <a class="btn btn-primary" href="#productos">VER PRODUCTOS　›</a>
+        <a class="btn btn-outline" href="#armar">ARMAR MI PC　›</a>
+      </div>
+      <div class="benefits">
+        <div class="benefit"><div class="icon">♢</div><div><strong>GARANTÍA</strong><small>Productos con garantía oficial.</small></div></div>
+        <div class="benefit"><div class="icon">♧</div><div><strong>ENVÍOS RÁPIDOS</strong><small>Recibe tu pedido en 24-72h hábiles.</small></div></div>
+        <div class="benefit"><div class="icon">♧</div><div><strong>SOPORTE TÉCNICO</strong><small>Asesoría personalizada antes y después.</small></div></div>
+      </div>
+    </div>
+    <div class="pc-visual"><div class="pc-case"><div class="fan f1"></div><div class="fan f2"></div><div class="fan f3"></div><div class="gpu"></div></div></div>
+  </section>
+
+  <section id="categorias">
+    <h2 class="section-title">CATEGORÍAS</h2>
+    <div class="categories">
+      <div class="category"><div class="category-img">🖥️</div><h3>COMPUTADORAS</h3><p>Equipos listos para todo</p></div>
+      <div class="category"><div class="category-img">⚙️</div><h3>PROCESADORES</h3><p>Rendimiento que impulsa</p></div>
+      <div class="category"><div class="category-img">🎮</div><h3>TARJETAS GRÁFICAS</h3><p>Gráficos que cobran vida</p></div>
+      <div class="category"><div class="category-img">🔲</div><h3>PLACAS MADRE</h3><p>La base de tu PC</p></div>
+      <div class="category"><div class="category-img">💾</div><h3>MEMORIAS RAM</h3><p>Más velocidad, mejor experiencia</p></div>
+      <div class="category"><div class="category-img">🔌</div><h3>FUENTES DE PODER</h3><p>Energía estable, rendimiento seguro</p></div>
+    </div>
+    <button class="all-btn">VER TODAS LAS CATEGORÍAS</button>
+  </section>
+
+  <section class="products" id="productos">
+    <h2 class="section-title">PRODUCTOS DESTACADOS</h2>
+    <div class="product-grid">
+      <article class="product">
+        <span class="offer">¡OFERTA!</span><div class="product-img">🖥️</div>
+        <div class="product-body"><h3>PC Gamer Ryzen 5 5600G<br>16GB RAM | 512GB SSD</h3><div class="price">$699.99 <span class="old">$799.99</span></div><button class="add" onclick="addToCart('PC Gamer Ryzen 5 5600G')">🛒 AGREGAR AL CARRITO</button></div>
+      </article>
+      <article class="product">
+        <div class="product-img">🎮</div>
+        <div class="product-body"><h3>Tarjeta Gráfica ASUS<br>RTX 4060 8GB</h3><div class="price">$329.99</div><button class="add" onclick="addToCart('ASUS RTX 4060 8GB')">🛒 AGREGAR AL CARRITO</button></div>
+      </article>
+      <article class="product">
+        <div class="product-img">💾</div>
+        <div class="product-body"><h3>Memoria RAM Corsair<br>Vengeance 16GB (2x8GB) 3200MHz</h3><div class="price">$54.99</div><button class="add" onclick="addToCart('Corsair Vengeance 16GB')">🛒 AGREGAR AL CARRITO</button></div>
+      </article>
+      <article class="product">
+        <div class="product-img">🔲</div>
+        <div class="product-body"><h3>Placa Madre MSI<br>B550M PRO-VDH WiFi</h3><div class="price">$129.99</div><button class="add" onclick="addToCart('MSI B550M PRO-VDH WiFi')">🛒 AGREGAR AL CARRITO</button></div>
+      </article>
+      <article class="product">
+        <div class="product-img">💿</div>
+        <div class="product-body"><h3>SSD Crucial BX500<br>1TB 2.5" SATA</h3><div class="price">$59.99</div><button class="add" onclick="addToCart('SSD Crucial BX500 1TB')">🛒 AGREGAR AL CARRITO</button></div>
+      </article>
+    </div>
+
+    <div class="assembly" id="armar">
+      <div class="assembly-icon">🛠</div>
+      <div class="assembly-text"><h2>¿No sabes qué elegir?<br><span>Nosotros armamos tu PC ideal</span></h2><p>Cuéntanos qué necesitas y te asesoramos para crear la mejor configuración para ti.</p></div>
+      <button class="btn btn-primary" onclick="showToast('Un asesor se pondrá en contacto contigo.')">ARMAR MI PC AHORA　›</button>
+    </div>
+  </section>
+</main>
+
+<footer id="contacto">
+  <div class="footer-grid">
+    <div id="nosotros"><h3>PCSTORE</h3><p>Tu tienda de confianza en computadoras y componentes. Calidad, rendimiento y garantía en cada producto.</p><div class="social">●　◎　♪　▶</div></div>
+    <div><h3>ENLACES RÁPIDOS</h3><a href="#">Inicio</a><a href="#productos">Productos</a><a href="#categorias">Componentes</a><a href="#ofertas">Ofertas</a><a href="#armar">Armar mi PC</a><a href="#contacto">Contacto</a></div>
+    <div><h3>AYUDA</h3><a href="#">Preguntas frecuentes</a><a href="#">Envíos y entregas</a><a href="#">Políticas de devolución</a><a href="#">Garantías</a><a href="#">Métodos de pago</a><a href="#">Soporte técnico</a></div>
+    <div><h3>CONTACTO</h3><p>☎ +593 123 456 789</p><p>✉ info@pcstore.com</p><p>⌖ Ecuador</p><p>◷ Lun - Vie: 9:00 am - 6:00 pm</p><p>Sáb: 9:00 am - 1:00 pm</p></div>
+  </div>
+  <div class="copyright">© 2026 PCSTORE. Todos los derechos reservados.</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  let cart = 0;
+  function addToCart(product){
+    cart++;
+    document.getElementById('cartCount').textContent = cart;
+    showToast(product + ' fue agregado al carrito.');
+  }
+  function showToast(message){
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.add('show');
+    setTimeout(()=>toast.classList.remove('show'),2500);
+  }
+</script>
+</body>
+</html>
