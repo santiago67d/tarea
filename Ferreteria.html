@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferretería Online</title>
+    <style>
+        /* Agrega estilos CSS según tus necesidades */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+        }
+
+        section {
+            margin: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .producto {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            width: 300px;
+            text-align: center;
+        }
+
+        #carrito {
+            background-color: #ddd;
+            padding: 10px;
+            margin: 20px;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Ferretería Molina</h1>
+    </header>
+
+    <section id="productos">
+        <div class="producto" data-id="1" data-nombre="Martillo" data-precio="20.00">
+            <img src="martillo.jpg" alt="Martillo">
+            <h2>Martillo</h2>
+            <p>Precio: $20.00</p>
+            <button onclick="agregarAlCarrito(this)">Agregar al carrito</button>
+        </div>
+
+        <div class="producto" data-id="2" data-nombre="Destornillador" data-precio="10.00">
+            <img src="destornillador.jpg" alt="Destornillador">
+            <h2>Destornillador</h2>
+            <p>Precio: $10.00</p>
+            <button onclick="agregarAlCarrito(this)">Agregar al carrito</button>
+        </div>
+
+        <!-- Agrega más productos según sea necesario -->
+    </section>
+
+    <section id="carrito">
+        <h2>Carrito de compras</h2>
+        <ul id="lista-carrito">
+            <!-- La lista de productos en el carrito se actualizará dinámicamente aquí -->
+        </ul>
+        <p>Total: $<span id="total">0.00</span></p>
+        <button onclick="realizarCompra()">Realizar compra</button>
+    </section>
+
+    <script>
+        let carrito = [];
+
+        function agregarAlCarrito(boton) {
+            const producto = boton.parentNode;
+            const id = producto.dataset.id;
+            const nombre = producto.dataset.nombre;
+            const precio = parseFloat(producto.dataset.precio);
+
+            // Verificar si el producto ya está en el carrito
+            const existeEnCarrito = carrito.some(item => item.id === id);
+
+            if (existeEnCarrito) {
+                alert("El producto ya está en el carrito.");
+                return;
+            }
+
+            // Agregar el producto al carrito
+            carrito.push({ id, nombre, precio });
+
+            // Actualizar la visualización del carrito
+            actualizarCarrito();
+        }
+
+        function actualizarCarrito() {
+            const listaCarrito = document.getElementById('lista-carrito');
+            const totalElemento = document.getElementById('total');
+
+            // Limpiar la lista
+            listaCarrito.innerHTML = '';
+
+            // Calcular el total
+            let total = 0;
+
+            // Recorrer el carrito y agregar elementos a la lista
+            carrito.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `${item.nombre} - $${item.precio.toFixed(2)}`;
+                listaCarrito.appendChild(li);
+
+                total += item.precio;
+            });
+
+            // Actualizar el total
+            totalElemento.textContent = total.toFixed(2);
+        }
+
+        function realizarCompra() {
+            // Lógica para procesar la compra
+            alert('Compra realizada. Gracias por su compra.');
+            // Puedes reiniciar el carrito después de realizar la compra
+            carrito = [];
+            actualizarCarrito();
+        }
+    </script>
+</body>
+</html>
